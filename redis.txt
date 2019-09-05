@@ -1,0 +1,12 @@
+#redis需要修改的参数
+bind 0.0.0.0		#允许任意服务器访问
+daemonize yes		#允许后台执行
+requirepass xxxx	#设置密码
+ > redis-cli
+ > auth xxxx		#输入密码即可操作
+
+#将redis做成服务
+> $redis_home/utils/install_redis.sh
+
+
+
