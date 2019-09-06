@@ -2,6 +2,7 @@ package com.imooc.miaosha.controller;
 
 import com.imooc.miaosha.domain.User;
 import com.imooc.miaosha.redis.RedisService;
+import com.imooc.miaosha.redis.UserKey;
 import com.imooc.miaosha.result.CodeMsg;
 import com.imooc.miaosha.result.Result;
 import com.imooc.miaosha.service.UserService;
@@ -63,11 +64,19 @@ public class SampleController {
 
     @RequestMapping("/redis/get")
     @ResponseBody
-    public Result<Long> redisGet(){
-        Long val = redisService.get("key1", Long.class);
-        return Result.success(val);
+    public Result<User> redisGet(){
+        User user= redisService.get(UserKey.getById, "" + 1, User.class);
+        return Result.success(user);
     }
 
+
+    @RequestMapping("/redis/set")
+    @ResponseBody
+    public Result<Boolean> redisSet(){
+        User user = new User(1, "11111");
+        boolean ret = redisService.set(UserKey.getById, "1", user);
+        return Result.success(ret);
+    }
 
 
 }
