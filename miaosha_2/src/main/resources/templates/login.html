@@ -86,7 +86,7 @@
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 layer.closeAll();
-                alert("异常");
+                layer.msg(data.msg);
             }
         });
     }
