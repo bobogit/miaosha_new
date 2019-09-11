@@ -11,6 +11,7 @@ import com.imooc.miaosha.util.MD5Util;
 import com.imooc.miaosha.util.UUIDUtil;
 import com.imooc.miaosha.vo.LoginVo;
 import com.sun.org.apache.xerces.internal.parsers.DTDParser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class MiaoshaUserService {
 
-    private static final String COOKIE_NAME_TOKEN = "token";
+    public static final String COOKIE_NAME_TOKEN = "token";
 
     @Autowired
     private MiaoshaUserDao miaoshaUserDao;
@@ -55,6 +56,27 @@ public class MiaoshaUserService {
             GlobalExceptionUtil.checkException(CodeMsg.PASSWORD_ERROR);
         }
 
+        addCookie(response, miaoshaUser);
+
+        return true;
+    }
+
+    public MiaoshaUser getByToken(String token, HttpServletResponse response) {
+        if(StringUtils.isEmpty(token))
+            return null;
+
+        MiaoshaUser miaoshaUser = redisService.get(MiaoshaUserKey.token, token, MiaoshaUser.class);
+
+        if(miaoshaUser != null) {
+            //延长有效期
+            addCookie(response, miaoshaUser);
+        }
+
+        return miaoshaUser;
+    }
+
+    private void addCookie(HttpServletResponse response, MiaoshaUser miaoshaUser){
+
         //生成cookie
         String token = UUIDUtil.uuid();
         redisService.set(MiaoshaUserKey.token, token, miaoshaUser);
@@ -64,7 +86,5 @@ public class MiaoshaUserService {
         cookie.setPath("/");
 
         response.addCookie(cookie);
-
-        return true;
     }
 }
