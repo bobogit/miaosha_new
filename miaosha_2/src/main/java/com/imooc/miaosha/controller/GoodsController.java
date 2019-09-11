@@ -26,24 +26,34 @@ public class GoodsController {
 
     @RequestMapping("to_list")
     public String toList(Model model
-            , @CookieValue(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String cookieToken
-            , @RequestParam(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String paramToken
+//            , @CookieValue(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String cookieToken
+//            , @RequestParam(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String paramToken
+                         , MiaoshaUser user
             , HttpServletResponse response) {
 
-        if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)){
-            return "login";
-        }
-
-        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
-
-        MiaoshaUser user = userService.getByToken(token, response);
+//        if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)){
+//            return "login";
+//        }
+//
+//        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
+//
+//        MiaoshaUser user = userService.getByToken(token, response);
 
         model.addAttribute("user", user);
 
         return "goods_list";
     }
 
-    
+    @RequestMapping("to_detail")
+    public String toDetail(Model model
+            , @CookieValue(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String cookieToken
+            , @RequestParam(value = MiaoshaUserService.COOKIE_NAME_TOKEN, required = false) String paramToken
+            , HttpServletResponse response) {
+
+
+
+        return null;
+    }
 
 
 }
