@@ -1,0 +1,17 @@
+package com.imooc.miaosha.dao;
+
+import com.imooc.miaosha.domain.MiaoshaUser;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+/**
+ * Created By wangbo
+ * 2019/9/9
+ */
+@Mapper
+public interface MiaoshaUserDao {
+
+    @Select("select * from miaosha_user where id=#{id}")
+    MiaoshaUser getById(@Param("id") long id);
+}
