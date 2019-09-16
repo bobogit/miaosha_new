@@ -31,7 +31,7 @@ public class CodeMsg {
 
 
     //秒杀模块 5005XX
-
+    public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "商品秒杀完毕");
 
 
     public CodeMsg fillArgs(Object... args) {

@@ -75,7 +75,7 @@ public class GoodsController {
         }
 
         model.addAttribute("miaoshaStatus", miaoshaStatus);
-        model.addAttribute("remianSeconds", remianSeconds);
+        model.addAttribute("remainSeconds", remianSeconds);
 
 
         return "goods_detail";

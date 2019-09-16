@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
-    MiaoshaUserService  userService;
+    MiaoshaUserService userService;
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -41,20 +41,22 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         String paramToken = request.getParameter(MiaoshaUserService.COOKIE_NAME_TOKEN);
         String cookieToken = getCookieValue(request, MiaoshaUserService.COOKIE_NAME_TOKEN);
 
-        if(StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
+        if (StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
             return null;
         }
 
-        String token = StringUtils.isEmpty(paramToken)?cookieToken:paramToken;
+        String token = StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;
 
-        return userService.getByToken(token,response);
+        return userService.getByToken(token, response);
     }
 
     private String getCookieValue(HttpServletRequest request, String cookieNameToken) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals(cookieNameToken))
-                return cookie.getValue();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieNameToken))
+                    return cookie.getValue();
+            }
         }
         return null;
     }
