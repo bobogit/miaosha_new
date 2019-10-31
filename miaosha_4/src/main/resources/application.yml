@@ -1,0 +1,44 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: true
+    content-type: text/html
+    enabled: true
+    encoding: utf-8
+    mode: HTML5
+    suffix: .html
+  datasource:
+    url: jdbc:mysql://tiantian-test.czq1gvuknc5h.rds.cn-north-1.amazonaws.com.cn:3306/springcloud_sell
+    username: tiantian
+    password: xldks2oI8$^
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 1000
+    initialSize: 100
+    maxWait: 60000
+    minIdle: 500
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.imooc.miaosha.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+
+redis:
+  host: 192.168.1.48
+  port: 6379
+  redis.timeout: 10
+  poolMaxTotal: 1000
+  poolMaxIdle: 500
+  poolMaxWait: 500
+#  password: 123456
